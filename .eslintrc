@@ -28,7 +28,8 @@
             {
               "endOfLine": "auto"
             }
-        ]
+        ],
+        "no-console": "off"
     },
     "parser": "@typescript-eslint/parser"
 }
