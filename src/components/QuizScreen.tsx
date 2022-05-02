@@ -72,10 +72,10 @@ function QuizScreen() {
                 <div dangerouslySetInnerHTML={sanitizedData(md.render(question?.question.substring(4).trim() || ''))} />
             </Box>
             <Box shadow="xs" p="1rem 1.5rem">
-                <RadioGroup value={currentOption} onChange={handleOptionChange}>
+                <RadioGroup value={`${currentOption}`} onChange={handleOptionChange}>
                     <Stack>
                         {question?.options?.map((item, idx) => (
-                            <Radio value={idx}>
+                            <Radio value={`${idx}`}>
                                 {' '}
                                 <div dangerouslySetInnerHTML={sanitizedData(md.render(item || ''))} />
                             </Radio>

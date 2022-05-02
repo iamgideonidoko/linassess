@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-danger */
-import React, { useEffect, useState } from 'react';
-import { Container, Box, useToast, Center, Text, Stack, Button, RadioGroup, Radio } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Container, Box, Center, Text, Stack, Button, RadioGroup, Radio } from '@chakra-ui/react';
 import { md, sanitizedData } from './QuizScreen';
 
 import useStore from '../store';
@@ -17,19 +17,7 @@ function EndScreen() {
     const scoreArr = Object.entries(score);
     const [viewAnswer, setViewAnswer] = useState(false);
     console.log('score => ', score);
-
-    const toast = useToast();
-
-    useEffect(() => {
-        toast({
-            description: 'The assessment has ended',
-            status: 'info',
-            duration: 3000,
-            isClosable: true,
-            position: 'bottom',
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    console.log('selectedQuestions => ', selectedQuestions);
 
     const handleViewAnswer = () => {
         setViewAnswer(true);
@@ -110,10 +98,10 @@ function EndScreen() {
                                     />
                                 </Box>
                                 <Box shadow="xs" p="1rem 1.5rem">
-                                    <RadioGroup defaultValue={question._ps}>
+                                    <RadioGroup defaultValue={`${question._ps}`}>
                                         <Stack>
                                             {question?.options?.map((item, idx) => (
-                                                <Radio value={idx} defaultChecked={question._ps === idx}>
+                                                <Radio value={`${idx}`} defaultChecked={question._ps === idx}>
                                                     {' '}
                                                     <div
                                                         dangerouslySetInnerHTML={sanitizedData(md.render(item || ''))}
