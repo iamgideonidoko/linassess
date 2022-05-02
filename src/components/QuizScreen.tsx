@@ -45,7 +45,7 @@ function QuizScreen() {
         setScore({ ...score, [currentQuestion]: currentOption === question._ps });
         setCurrentQuestion((prev) => prev + 1);
         setCurrentOption(undefined);
-        return setTime(typeof time === 'string' ? 0.1 : '0.1');
+        return setTime(typeof time === 'string' ? 1.5 : '1.5');
     };
 
     const handleOptionChange = (nextValue: string) => {
