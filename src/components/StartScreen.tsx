@@ -69,10 +69,10 @@ function StartScreen() {
     };
 
     return (
-        <Box p="3rem" px="2rem">
-            <Container bg="white" maxW="md" shadow="sm" p="1rem" mt="0rem" borderRadius="6px">
+        <Box py="3rem">
+            <Container bg="white" width="92%" maxW="md" shadow="sm" p="1rem" mt="0rem" borderRadius="6px">
                 <FormControl>
-                    <FormLabel htmlFor="skills">Skill</FormLabel>
+                    <FormLabel htmlFor="skills">Select Skill</FormLabel>
                     <Select id="skills" value={quiz} onChange={handleSelect} placeholder="Select skill">
                         {quizList.map((item) => (
                             <option value={item.fileName}>{item.name}</option>

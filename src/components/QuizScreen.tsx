@@ -57,7 +57,7 @@ function QuizScreen() {
         <Box
             background="white"
             my="3rem"
-            w="90%"
+            w="92%"
             mx="auto"
             maxW="1000px"
             shadow="xs"

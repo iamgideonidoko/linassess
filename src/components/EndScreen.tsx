@@ -39,9 +39,9 @@ function EndScreen() {
     };
 
     return (
-        <Box p="3rem" px="2rem">
+        <Box py="3rem">
             <Container
-                w="90%"
+                w="92%"
                 bg="white"
                 maxW={viewAnswer ? '1000px' : 'md'}
                 shadow="sm"
