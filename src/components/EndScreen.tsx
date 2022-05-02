@@ -5,6 +5,7 @@ import { Container, Box, Center, Text, Stack, Button, RadioGroup, Radio } from '
 import { md, sanitizedData } from './QuizScreen';
 
 import useStore from '../store';
+import { uuid } from '../helper';
 
 const getStore = (scoreArr: [string, unknown][]) => {
     const score = scoreArr.filter(([, value]) => value).length;
@@ -89,7 +90,7 @@ function EndScreen() {
                 <Box pt="2rem">
                     {viewAnswer &&
                         selectedQuestions.map((question) => (
-                            <>
+                            <React.Fragment key={uuid()}>
                                 <Box shadow="xs" p="1rem 1.5rem">
                                     <div
                                         dangerouslySetInnerHTML={sanitizedData(
@@ -111,7 +112,7 @@ function EndScreen() {
                                         </Stack>
                                     </RadioGroup>
                                 </Box>
-                            </>
+                            </React.Fragment>
                         ))}
                 </Box>
             </Container>

@@ -31,6 +31,7 @@ function QuizScreen() {
     const score = useStore((state) => state.score);
     const setScore = useStore((state) => state.setScore);
     const setCurrentScreen = useStore((state) => state.setCurrentScreen);
+    const currentQuizInfo = useStore((state) => state.currentQuizInfo);
 
     const question = selectedQuestions[currentQuestion];
 
@@ -52,6 +53,7 @@ function QuizScreen() {
 
     const handleOptionChange = (nextValue: string) => {
         setCurrentOption(Number(nextValue));
+        setScore({ ...score, [currentQuestion]: Number(nextValue) === question._ps });
     };
 
     return (
@@ -66,7 +68,7 @@ function QuizScreen() {
             overflow="hidden"
         >
             <Center bg="#676667" color="white" py="1rem" px="0.5rem" fontWeight="600" fontSize="20px">
-                HTML Assessment
+                {currentQuizInfo?.name} Assessment
             </Center>
             <Box shadow="xs" p="1rem 1.5rem">
                 <div dangerouslySetInnerHTML={sanitizedData(md.render(question?.question.substring(4).trim() || ''))} />
