@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Center, Flex, Button, Stack, RadioGroup, Radio } from '@chakra-ui/react';
 import MarkdownIt from 'markdown-it';
 import DOMPurify from 'dompurify';
-import { startTimer } from '../helper';
+import { refineHtml, startTimer } from '../helper';
 import useStore from '../store';
 
 function Timer({ time, handleNext }: { time: number | string | null; handleNext: () => void }) {
@@ -19,8 +19,8 @@ function Timer({ time, handleNext }: { time: number | string | null; handleNext:
 }
 export const md = new MarkdownIt();
 
-export const sanitizedData = (data: string) => ({
-    __html: DOMPurify.sanitize(data),
+export const sanitizedData = (data: string, fileName: string) => ({
+    __html: refineHtml(DOMPurify.sanitize(data), fileName),
 });
 
 function QuizScreen() {
@@ -35,8 +35,6 @@ function QuizScreen() {
 
     const question = selectedQuestions[currentQuestion];
 
-    console.log('currentOption => ', currentOption);
-
     useEffect(() => {
         setTime(typeof time === 'string' ? 0.1 : '0.1');
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,7 +42,6 @@ function QuizScreen() {
 
     const handleNext = () => {
         if (selectedQuestions.length === Number(currentQuestion) + 1) return setCurrentScreen('end');
-        console.log('love');
         setScore({ ...score, [currentQuestion]: currentOption === question._ps });
         setCurrentQuestion((prev) => prev + 1);
         setCurrentOption(undefined);
@@ -71,7 +68,12 @@ function QuizScreen() {
                 {currentQuizInfo?.name} Assessment
             </Center>
             <Box shadow="xs" p="1rem 1.5rem">
-                <div dangerouslySetInnerHTML={sanitizedData(md.render(question?.question.substring(4).trim() || ''))} />
+                <div
+                    dangerouslySetInnerHTML={sanitizedData(
+                        md.render(question?.question.substring(4).trim() || ''),
+                        currentQuizInfo?.fileName as string,
+                    )}
+                />
             </Box>
             <Box shadow="xs" p="1rem 1.5rem">
                 <RadioGroup value={`${currentOption}`} onChange={handleOptionChange}>
@@ -79,7 +81,12 @@ function QuizScreen() {
                         {question?.options?.map((item, idx) => (
                             <Radio value={`${idx}`}>
                                 {' '}
-                                <div dangerouslySetInnerHTML={sanitizedData(md.render(item || ''))} />
+                                <div
+                                    dangerouslySetInnerHTML={sanitizedData(
+                                        md.render(item || ''),
+                                        currentQuizInfo?.fileName as string,
+                                    )}
+                                />
                             </Radio>
                         ))}
                     </Stack>

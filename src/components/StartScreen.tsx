@@ -15,8 +15,6 @@ function StartScreen() {
 
     const toast = useToast();
 
-    console.log('quiz => ', quiz);
-
     const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setQuiz(e.target.value);
     };
@@ -80,7 +78,9 @@ function StartScreen() {
                             <option value={item.fileName}>{item.name}</option>
                         ))}
                     </Select>
-                    <FormHelperText>You will be given 15 questions (1min &amp; 30secs for each).</FormHelperText>
+                    <FormHelperText>
+                        You will be given 15 questions or less (1min &amp; 30secs for each).
+                    </FormHelperText>
                     <Box textAlign="right" mt="1rem">
                         {' '}
                         <Button

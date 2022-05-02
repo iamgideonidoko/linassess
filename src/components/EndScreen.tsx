@@ -5,7 +5,7 @@ import { Container, Box, Center, Text, Stack, Button, RadioGroup, Radio } from '
 import { md, sanitizedData } from './QuizScreen';
 
 import useStore from '../store';
-import { uuid } from '../helper';
+import { randomizeQuestions, uuid } from '../helper';
 
 const getStore = (scoreArr: [string, unknown][]) => {
     const score = scoreArr.filter(([, value]) => value).length;
@@ -15,18 +15,28 @@ const getStore = (scoreArr: [string, unknown][]) => {
 function EndScreen() {
     const score = useStore((state) => state.score);
     const selectedQuestions = useStore((state) => state.selectedQuestions);
+    const currentQuizInfo = useStore((state) => state.currentQuizInfo);
+    const setCurrentScreen = useStore((state) => state.setCurrentScreen);
+    const setScore = useStore((state) => state.setScore);
+    const questions = useStore((state) => state.questions);
+    const setSelectedQuestions = useStore((state) => state.setSelectedQuestions);
     const scoreArr = Object.entries(score);
     const [viewAnswer, setViewAnswer] = useState(false);
-    console.log('score => ', score);
-    console.log('selectedQuestions => ', selectedQuestions);
 
     const handleViewAnswer = () => {
         setViewAnswer(true);
     };
 
-    const handleRetake = () => {};
+    const handleRetake = () => {
+        if (viewAnswer) setViewAnswer(false);
+        setScore({});
+        setSelectedQuestions(randomizeQuestions(questions).slice(0, 15));
+        setCurrentScreen('quiz');
+    };
 
-    const handleTakeAnother = () => {};
+    const handleTakeAnother = () => {
+        window.location.href = '/';
+    };
 
     return (
         <Box p="3rem" px="2rem">
@@ -41,7 +51,7 @@ function EndScreen() {
             >
                 <Center flexDirection="column">
                     <Text fontSize="6xl">😊</Text>
-                    <Text>You&apos;ve completed the HTML assessment</Text>
+                    <Text>You&apos;ve completed the {currentQuizInfo?.name} assessment</Text>
                     <Text>
                         You scored: {getStore(scoreArr)}/{selectedQuestions.length}
                     </Text>
@@ -95,6 +105,7 @@ function EndScreen() {
                                     <div
                                         dangerouslySetInnerHTML={sanitizedData(
                                             md.render(question?.question.substring(4).trim() || ''),
+                                            currentQuizInfo?.fileName as string,
                                         )}
                                     />
                                 </Box>
@@ -105,7 +116,10 @@ function EndScreen() {
                                                 <Radio value={`${idx}`} defaultChecked={question._ps === idx}>
                                                     {' '}
                                                     <div
-                                                        dangerouslySetInnerHTML={sanitizedData(md.render(item || ''))}
+                                                        dangerouslySetInnerHTML={sanitizedData(
+                                                            md.render(item || ''),
+                                                            currentQuizInfo?.fileName as string,
+                                                        )}
                                                     />
                                                 </Radio>
                                             ))}

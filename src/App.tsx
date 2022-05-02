@@ -10,11 +10,8 @@ import EndScreen from './components/EndScreen';
 
 function App() {
     const setQuizList = useStore((state) => state.setQuizList);
-    const quizList = useStore((state) => state.quizList);
     const isQuizListLoaded = useStore((state) => state.isQuizListLoaded);
     const currentScreen = useStore((state) => state.currentScreen);
-    console.log(isQuizListLoaded);
-    console.log(quizList);
 
     const toast = useToast();
 
