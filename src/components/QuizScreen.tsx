@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Box, Center, Flex, Button } from '@chakra-ui/react';
 import { startTimer } from '../helper';
 
-// eslint-disable-next-line prefer-const
-
 function Timer({ time }: { time: number | string }) {
     const [timer, setTimer] = useState<string>('00:00');
 
@@ -36,9 +34,15 @@ function QuizScreen() {
             <Center bg="#676667" color="white" py="1rem" px="0.5rem" fontWeight="600" fontSize="20px">
                 HTML Assessment
             </Center>
-            <Box>Question</Box>
-            <Box>Option</Box>
-            <Box>Quiz Progress</Box>
+            <Box shadow="xs" p="1rem 1.5rem">
+                Question
+            </Box>
+            <Box shadow="xs" p="1rem 1.5rem">
+                Option
+            </Box>
+            <Box bg="#DBD9DB" width="100%" mt="0.5rem">
+                <Box bg="#58677F" w="50%" h="0.8rem" transition="width ease 0.3s" />
+            </Box>
             <Flex justifyContent="space-between" alignItems="center" p="1rem 1.5rem" shadow="xs" mt="0.5rem">
                 <Box>
                     Q4/15 &nbsp;&nbsp; <Timer time={time} />
