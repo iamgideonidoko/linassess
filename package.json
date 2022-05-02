@@ -1,7 +1,7 @@
 {
   "name": "linassess",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -44,5 +44,20 @@
     "prettier": "^2.6.2",
     "typescript": "^4.6.3",
     "vite": "^2.9.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IamGideonIdoko/linaccess.git"
+  },
+  "keywords": [
+    "linkedin",
+    "assessment",
+    "app"
+  ],
+  "author": "Gideon Idoko <iamgideonidoko@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IamGideonIdoko/linaccess/issues"
+  },
+  "homepage": "https://github.com/IamGideonIdoko/linaccess#readme"
 }
