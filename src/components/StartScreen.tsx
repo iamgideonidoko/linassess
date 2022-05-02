@@ -8,6 +8,7 @@ function StartScreen() {
     const quizList = useStore((state) => state.quizList);
     const setQuizzes = useStore((state) => state.setQuizzes);
     const setSelectedQuizzes = useStore((state) => state.setSelectedQuizzes);
+    const setCurrentQuizInfo = useStore((state) => state.setCurrentQuizInfo);
     const setCurrentScreen = useStore((state) => state.setCurrentScreen);
     const [quiz, setQuiz] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -53,6 +54,8 @@ function StartScreen() {
                         position: 'bottom',
                     });
                 setQuizzes(quizzes);
+                const fileInfo = quizList.find((item) => item.fileName === quiz);
+                if (fileInfo) setCurrentQuizInfo(fileInfo);
                 setSelectedQuizzes(randomizeQuiz(quizzes).slice(0, 15));
                 return setCurrentScreen('quiz');
             }

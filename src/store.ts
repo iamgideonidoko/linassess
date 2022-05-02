@@ -13,6 +13,7 @@ export interface Quiz {
 
 interface State {
     currentScreen: 'start' | 'end' | 'quiz';
+    currentQuizInfo: QuizInfo | null;
     quizList: QuizInfo[];
     quizzes: Quiz[];
     seletedQuizzes: Quiz[];
@@ -21,11 +22,13 @@ interface State {
     setQuizList: (val: QuizInfo[]) => void;
     setQuizzes: (val: Quiz[]) => void;
     setSelectedQuizzes: (val: Quiz[]) => void;
+    setCurrentQuizInfo: (val: QuizInfo) => void;
     setCurrentScreen: (val: 'start' | 'end' | 'quiz') => void;
 }
 
 const useStore = create<State>((set) => ({
-    currentScreen: 'start',
+    currentScreen: 'quiz',
+    currentQuizInfo: null,
     quizList: [],
     quizzes: [],
     seletedQuizzes: [],
@@ -33,7 +36,8 @@ const useStore = create<State>((set) => ({
     isQuizzesLoaded: false,
     setQuizList: (val) => set({ quizList: val, isQuizListLoaded: true }),
     setQuizzes: (val) => set({ quizzes: val }),
-    setSelectedQuizzes: (val) => set({ quizzes: val }),
+    setSelectedQuizzes: (val) => set({ seletedQuizzes: val }),
+    setCurrentQuizInfo: (val) => set({ currentQuizInfo: val }),
     setCurrentScreen: (val) => set({ currentScreen: val }),
 }));
 
