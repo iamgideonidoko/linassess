@@ -1,4 +1,4 @@
-import { Quiz } from './store';
+import { Question } from './store';
 
 /* function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
@@ -31,7 +31,7 @@ export const constants: Constant = {
     baseUrl: 'https://raw.githubusercontent.com/iamgideonidoko/linassess-data-gen/master',
 };
 
-export const randomizeQuiz = (arr: Array<Quiz>) => arr.sort(() => Math.random() - 0.5);
+export const randomizeQuestions = (arr: Array<Question>) => arr.sort(() => Math.random() - 0.5);
 
 let intervalId: number;
 

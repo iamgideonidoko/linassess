@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Container, FormControl, FormLabel, FormHelperText, Select, Button, Box, useToast } from '@chakra-ui/react';
 import axios from 'axios';
-import useStore, { Quiz } from '../store';
-import { constants, randomizeQuiz } from '../helper';
+import useStore, { Question } from '../store';
+import { constants, randomizeQuestions } from '../helper';
 
 function StartScreen() {
     const quizList = useStore((state) => state.quizList);
-    const setQuizzes = useStore((state) => state.setQuizzes);
-    const setSelectedQuizzes = useStore((state) => state.setSelectedQuizzes);
+    const setQuestions = useStore((state) => state.setQuestions);
+    const setSelectedQuestions = useStore((state) => state.setSelectedQuestions);
     const setCurrentQuizInfo = useStore((state) => state.setCurrentQuizInfo);
     const setCurrentScreen = useStore((state) => state.setCurrentScreen);
     const [quiz, setQuiz] = useState<string>('');
@@ -44,19 +44,19 @@ function StartScreen() {
             setLoading(false);
             if (Array.isArray(res.data)) {
                 // eslint-disable-next-line no-underscore-dangle
-                const quizzes = res.data.filter((item: Quiz) => item._ps >= 0);
-                if (quizzes.length === 0)
+                const questions = res.data.filter((item: Question) => item._ps >= 0);
+                if (questions.length === 0)
                     return toast({
                         description: 'Not available right now',
-                        status: 'error',
+                        status: 'info',
                         duration: 3000,
                         isClosable: true,
                         position: 'bottom',
                     });
-                setQuizzes(quizzes);
+                setQuestions(questions);
                 const fileInfo = quizList.find((item) => item.fileName === quiz);
                 if (fileInfo) setCurrentQuizInfo(fileInfo);
-                setSelectedQuizzes(randomizeQuiz(quizzes).slice(0, 15));
+                setSelectedQuestions(randomizeQuestions(questions).slice(0, 15));
                 return setCurrentScreen('quiz');
             }
             return console.log(

@@ -15,12 +15,16 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "axios": "^0.27.2",
+    "dompurify": "^2.3.6",
     "framer-motion": "^6",
+    "markdown-it": "^13.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@types/dompurify": "^2.3.3",
+    "@types/markdown-it": "^12.2.3",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
