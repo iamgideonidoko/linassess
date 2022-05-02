@@ -17,6 +17,11 @@ function Timer({ time, handleNext }: { time: number | string | null; handleNext:
 
     return <span>{timer}</span>;
 }
+export const md = new MarkdownIt();
+
+export const sanitizedData = (data: string) => ({
+    __html: DOMPurify.sanitize(data),
+});
 
 function QuizScreen() {
     const [time, setTime] = useState<number | string | null>(null);
@@ -28,12 +33,6 @@ function QuizScreen() {
     const setCurrentScreen = useStore((state) => state.setCurrentScreen);
 
     const question = selectedQuestions[currentQuestion];
-
-    const md = new MarkdownIt();
-
-    const sanitizedData = (data: string) => ({
-        __html: DOMPurify.sanitize(data),
-    });
 
     console.log('currentOption => ', currentOption);
 
@@ -70,7 +69,7 @@ function QuizScreen() {
                 HTML Assessment
             </Center>
             <Box shadow="xs" p="1rem 1.5rem">
-                <div dangerouslySetInnerHTML={sanitizedData(md.render(question?.question || ''))} />
+                <div dangerouslySetInnerHTML={sanitizedData(md.render(question?.question.substring(4).trim() || ''))} />
             </Box>
             <Box shadow="xs" p="1rem 1.5rem">
                 <RadioGroup value={currentOption} onChange={handleOptionChange}>
