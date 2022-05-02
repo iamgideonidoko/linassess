@@ -35,7 +35,11 @@ export const randomizeQuestions = (arr: Array<Question>) => arr.sort(() => Math.
 
 let intervalId: number;
 
-export function startTimer(duration: number, display: React.Dispatch<React.SetStateAction<string>>) {
+export function startTimer(
+    duration: number,
+    display: React.Dispatch<React.SetStateAction<string>>,
+    handleNext: () => void,
+) {
     let timer = duration;
     let minutes;
     let seconds;
@@ -52,6 +56,7 @@ export function startTimer(duration: number, display: React.Dispatch<React.SetSt
         if (--timer < 0) {
             timer = 0;
             if (intervalId) clearInterval(intervalId);
+            handleNext();
         }
     }, 1000);
 }

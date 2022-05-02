@@ -7,18 +7,19 @@ import DOMPurify from 'dompurify';
 import { startTimer } from '../helper';
 import useStore from '../store';
 
-function Timer({ time }: { time: number | string }) {
+function Timer({ time, handleNext }: { time: number | string | null; handleNext: () => void }) {
     const [timer, setTimer] = useState<string>('00:00');
 
     useEffect(() => {
-        startTimer(Number(time.toString()) * 60, setTimer);
+        if (time) startTimer(Number(time.toString()) * 60, setTimer, handleNext);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [time]);
 
     return <span>{timer}</span>;
 }
 
 function QuizScreen() {
-    const [time, setTime] = useState<number | string>(0);
+    const [time, setTime] = useState<number | string | null>(null);
     const selectedQuestions = useStore((state) => state.selectedQuestions);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
     const [currentOption, setCurrentOption] = useState<number | undefined>(undefined);
@@ -35,6 +36,11 @@ function QuizScreen() {
     });
 
     console.log('currentOption => ', currentOption);
+
+    useEffect(() => {
+        setTime(typeof time === 'string' ? 0.1 : '0.1');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleNext = () => {
         if (selectedQuestions.length === Number(currentQuestion) + 1) return setCurrentScreen('end');
@@ -88,7 +94,8 @@ function QuizScreen() {
             </Box>
             <Flex justifyContent="space-between" alignItems="center" p="1rem 1.5rem" shadow="xs" mt="0.5rem">
                 <Box>
-                    Q{currentQuestion + 1}/{selectedQuestions.length} &nbsp;&nbsp; <Timer time={time} />
+                    Q{currentQuestion + 1}/{selectedQuestions.length} &nbsp;&nbsp;{' '}
+                    <Timer time={time} handleNext={handleNext} />
                 </Box>
                 <Box>
                     <Button
