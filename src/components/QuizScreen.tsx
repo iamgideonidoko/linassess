@@ -36,7 +36,7 @@ function QuizScreen() {
     const question = selectedQuestions[currentQuestion];
 
     useEffect(() => {
-        setTime(typeof time === 'string' ? 0.1 : '0.1');
+        setTime(typeof time === 'string' ? 1.5 : '1.5');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
